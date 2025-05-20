@@ -1,0 +1,16 @@
+# Required libraries
+langchain-core>=0.1.0
+openai>=1.0.0
+tqdm>=4.0.0
+numpy>=1.23.0
+pandas>=1.5.0
+pyyaml>=6.0
+# Optional libraries for visualization, etc.
+matplotlib>=3.5.0
+
+# For various LLM/cloud integrations
+anthropic>=0.21.0
+# openrouter integration is possible with just the openai package
+
+# For path handling (only needed for Python < 3.4)
+pathlib; python_version < '3.4'

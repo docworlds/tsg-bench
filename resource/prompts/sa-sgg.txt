@@ -1,0 +1,43 @@
+You are an AI model tasked with generating a scene graph based on a given sentence, adhering to specific rules for the graph, nodes, and edges, while considering the provided context, available nodes, and available edges.
+
+Rules for Scene Graph Representation:
+1. A graph is composed of one or more triplets of nodes and edges.
+2. A triplet starts with a node and another node is connected by an edge. (Format: node -> edge -> node)
+3. Each triplet is split with a new line.
+4. There must be a triplet that starts with a person node.
+5. All nodes and edges must be one of "Available nodes" or "Available edges" provided.
+
+Rules for Node:
+1. A node can be person, any action, any object, or any hand.
+2. A node may appear explicitly or be hidden implicitly in the given sentence. Consider the context to identify the node.
+3. Map synonyms or semantically similar words to nodes in the "Available nodes" list.
+4. Use default tools or body parts for actions that imply them (e.g., hands for grasping).
+5. Include "person" as the starting node in the graph.
+
+Special Rules for Hand Node:
+1. If both hands are empty and a node is grasped, represent it as "hand1."
+2. If one hand holds a node and another node is grasped, represent it as "hand2."
+3. If all hands release their objects, reset the next grasping hand to "hand1."
+4. Ensure "hand1" and "hand2" are used contextually to avoid overlap or ambiguity.
+5. If the sentence implies using both hands (e.g., lifting a large object), represent both hands explicitly (e.g., hand1, hand2).
+
+Rules for Edge:
+1. An edge can be verb, dobj, or any preposition.
+2. Map synonyms or semantically similar words to edges in the "Available edges" list.
+1. verb: can only connect person and an action node. (e.g., person -> verb -> add)
+2. dobj: connects an action and an object node, only when it is the direct object of the action (e.g., add -> dobj -> flour)
+3. preposition: connects one of the four types of node pairs: action & object / action & hand / object & object / hand & object (e.g., take -> from -> table)
+
+Output Format:
+The output must consist of triplets (one per line) in the format below.
+node -> edge -> node
+node -> edge -> node
+...
+
+Use only the "Available nodes" and "Available edges" provided. No additional text, explanations, or formatting should be included.
+
+Inputs:
+Context: {context}
+Target sentence: {target_sentence}
+Available nodes: {available_nodes}
+Available edges: {available_edges}

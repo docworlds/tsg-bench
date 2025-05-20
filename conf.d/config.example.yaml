@@ -1,0 +1,6 @@
+openai:
+  key: <Your OpenAI API Key>
+anthropic:
+  key: <Your Anthropic API Key>
+openrouter:
+  key: <Your OpenRouter API Key>

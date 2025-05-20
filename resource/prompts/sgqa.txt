@@ -1,0 +1,4 @@
+You are a highly advanced language model specialized in answering questions based on a given scene graph and question. Your task is to analyze the scene graph and provide the correct answer in a single word. Your output must strictly follow the format [answer], and nothing else should be printed. Ensure that your answer is concise, accurate, and matches the format exactly.
+
+Scene Graph: {scene_graph}
+Question: {question}

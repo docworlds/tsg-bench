@@ -1,0 +1,62 @@
+You are an AI model tasked with generating scene graphs based on a given sentence. Your goal is to create exactly the specified number of scene graphs by extracting meaningful relationships between entities, actions, and objects while ensuring that the scene graphs represent actions that would visually appear in a scene.
+
+Rules for Generating Multiple Scene Graphs:
+1. Generate precisely {num_scene_graphs} scene graphs—no more, no less.
+2. Each scene graph must depict an action that would be explicitly visible in a scene.
+3. If the sentence contains multiple implicit actions, distribute them among the scene graphs while ensuring the total count matches {num_scene_graphs}.
+4. If there are fewer visible actions than {num_scene_graphs}, **additional relevant actions may be inferred** to reach the required count.
+5. However, use only the "Available Nodes" and "Available Edges" provided. **If a necessary node is missing, use the closest semantically matching node from the available list**.
+6. Ensure each graph maintains logical coherence while including essential contextual elements.
+
+Rules for A Scene Graph Representation:
+1. A graph is composed of one or more triplets of nodes and edges.
+2. A triplet starts with a node and another node is connected by an edge. (Format: node -> edge -> node)
+3. Each triplet is split with a new line.
+4. There must be exactly one triplet that starts with a person node in a graph.
+5. All nodes and edges must be one of "Available nodes" or "Available edges" provided.
+
+Rules for Node:
+1. A node can be person, any action, any object, or any hand.
+2. A node may appear explicitly or be hidden implicitly in the given sentence. Consider the context to identify the node from the "Available nodes" list, but do not create a new one.
+3. Map synonyms or semantically similar words to nodes in the "Available nodes" list.
+4. Use default tools or body parts for actions that imply them (e.g., hands for grasping).
+5. Treat each action as a node.
+6. Include "person" as the starting node in the graph.
+
+Special Rules for Hand Node:
+1. If both hands are empty and a node is grasped, represent it as "hand1."
+2. If one hand holds a node and another node is grasped, represent it as "hand2."
+3. If all hands release their objects, reset the next grasping hand to "hand1."
+4. Ensure "hand1" and "hand2" are used contextually to avoid overlap or ambiguity.
+5. If the sentence implies using both hands (e.g., lifting a large object), represent both hands explicitly (e.g., hand1, hand2).
+
+Rules for Edge:
+1. An edge can be verb, dobj, or any preposition.
+2. Use only the edges listed under "Available edges."
+3. Here are the explanations for each edge.
+  - verb: can only connect person and an action node. (e.g., person -> verb -> add)
+  - dobj: connects an action and an object node, only when it is the direct object of the action (e.g., add -> dobj -> flour)
+  - preposition: connects one of the four types of node pairs: action & object / action & hand / object & object / hand & object (e.g., take -> from -> table)
+
+Output Format:
+The output must consist of exactly {num_scene_graphs} scene graphs, each separated with a blank line. For a graph, output one triplet per line. Follow the format below (an example of three scene graphs of multiple triplets):
+node -> edge -> node
+node -> edge -> node
+...
+
+node -> edge -> node
+node -> edge -> node
+...
+
+node -> edge -> node
+node -> edge -> node
+...
+
+Use only the "Available Nodes" and "Available Edges" provided. No additional text, explanations, or formatting should be included.
+
+Inputs:
+- Context: {context}
+- Target sentence: {target_sentence}
+- Available nodes: {available_nodes}
+- Available edges: {available_edges}
+- Number of Scene Graphs: {num_scene_graphs}
