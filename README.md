@@ -1,7 +1,3 @@
-Here’s an improved and more comprehensive `README.md` for your **Open TSG Bench** project, fully reflecting the depth, motivation, design, and findings described in the TSG Bench paper. This version aims to make the purpose and strengths of your framework clear for new users and researchers. It covers motivation, tasks, dataset construction, evaluation, and guidance for using/extending the benchmark.
-
----
-
 # Open TSG Bench
 
 ## Overview
