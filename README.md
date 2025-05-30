@@ -1,4 +1,4 @@
-# Open TSG Bench
+# TSG Bench
 
 ## Overview
 
